@@ -1,12 +1,9 @@
 class Solution {
 public:
     string firstPalindrome(vector<string>& words) {
-        for(int i=0;i<words.size();i++){
-             string a=words[i];
-            reverse(words[i].begin(),words[i].end());
-            if(a==words[i]){
-                return a;
-                
+        for(string i:words){
+            if(i==string(rbegin(i),rend(i))){
+                return i;
             }
         }
         return "";
