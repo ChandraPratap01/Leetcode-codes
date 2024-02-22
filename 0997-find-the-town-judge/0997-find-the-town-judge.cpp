@@ -4,10 +4,10 @@ public:
         if(n==1){
             return n;
         }
-        unordered_map<int,int>mp;
-        vector<int>vc(n+1);
+        vector<int>mp(n+1,0);       
+        vector<int>vc(n+1,0);
         for(auto i:trust){
-            mp[i[0]]=i[1];
+            mp[i[0]]++;
             vc[i[1]]++;
         }
         for(int i=0;i<n+1;i++){
