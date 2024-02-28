@@ -11,23 +11,24 @@
  */
 class Solution {
 public:
-    int maxdepth=INT_MIN;
-    int result;
-    void dfs(TreeNode* root,int depth){
-        if(root==NULL){
-            return ;
-        }
-        if(depth>maxdepth){
-            maxdepth=depth;
-            result=root->val;
-            
-        }
-        dfs(root->left,depth+1);
-        dfs(root->right,depth+1);
-        
-    }
     int findBottomLeftValue(TreeNode* root) {
-        dfs(root,0);
+         queue<TreeNode*>que;
+        int result;
+        que.push(root);
+        while(!que.empty()){
+            for(auto i=0;i<que.size();i++){
+                TreeNode* j=que.front();
+                que.pop();
+                if(j->right){
+                que.push(j->right);
+                }
+                if(j->left){
+                que.push(j->left);   
+            }   
+        }
+        TreeNode*l=que.back();
+            result=l->val;
+    }
         return result;
     }
 };
