@@ -16,8 +16,8 @@ public:
         int result;
         que.push(root);
         while(!que.empty()){
-            for(auto i=0;i<que.size();i++){
                 TreeNode* j=que.front();
+            result=j->val;
                 que.pop();
                 if(j->right){
                 que.push(j->right);
@@ -26,9 +26,6 @@ public:
                 que.push(j->left);   
             }   
         }
-        TreeNode*l=que.back();
-            result=l->val;
-    }
         return result;
     }
 };
