@@ -11,39 +11,26 @@
  */
 class Solution {
 public:
-    bool isEvenOddTree(TreeNode* root) {
-        queue<TreeNode*>que;
-        que.push(root);
-        bool evenlevel=true;
-        while(!que.empty()){
-            int n=que.size();
-            int prev;
-            if(evenlevel){
-                prev=INT_MIN;
-            }
-            else{
-                prev=INT_MAX;
-            }
-            while(n--){
-                TreeNode*curr=que.front();
-                que.pop();
-                if(evenlevel && (curr->val%2==0 || curr->val<=prev) ){
-                    return false;
-                }
-                if(!evenlevel && (curr->val%2!=0 || curr->val>=prev) ){
-                    return false;
-                }
-                if(curr->left){
-                    que.push(curr->left);
-                } 
-                if(curr->right){
-                    que.push(curr->right);
-                }
-                prev=curr->val;
-            }
-            evenlevel=!evenlevel; 
+    vector<int>currnode;
+    bool solve(TreeNode*root,int level){
+        if(root==NULL){
+            return true;
         }
-        return true;
-                
+        if(level%2==root->val%2){
+            return false;
+        }
+        if(level>=currnode.size()){
+            currnode.resize(level+1);
+        }
+        if(currnode[level]!=0){
+            if((level%2==0 && currnode[level]>=root->val)|| (level%2!=0 && currnode[level]<=root->val)){
+               return false; 
+            }
+        }
+        currnode[level]=root->val;
+        return solve(root->left,level+1)&&solve(root->right,level+1);
+    }
+    bool isEvenOddTree(TreeNode* root) {
+        return solve(root,0);  
     }
 };
