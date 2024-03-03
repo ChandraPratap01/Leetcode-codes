@@ -10,30 +10,24 @@
  */
 class Solution {
 public:
-   int countlinklist(ListNode*head){
-      int count=1;
-       while(head->next!=NULL){
-           head=head->next;
-           count++;
-       }
-       return count;
-   }
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        int s=countlinklist(head);
-        if(s==n){
-            ListNode*temp=head->next;
-            delete(head);
-            return temp;
-        }
-        int travel=s-n;
-         ListNode*temp=head;
-        ListNode*prev=NULL;
-        while(travel--){
-            prev=temp;
+        ListNode*temp=head;
+        for(int i=0;i<n;i++){
             temp=temp->next;
         }
-        prev->next=temp->next;
-        delete(temp); 
-        return head;
+        if(temp==NULL){
+            ListNode*result=head->next;
+            delete(head);
+            return result;
+        }
+        ListNode*prev=head;
+        while(temp!=NULL && temp->next!=NULL){
+            prev=prev->next;
+            temp=temp->next;
+        }
+         ListNode*del=prev->next;
+        prev->next=prev->next->next;
+         delete(del);
+        return head;  
     }
 };
