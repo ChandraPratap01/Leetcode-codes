@@ -1,11 +1,23 @@
 class Solution {
 public:
     int getCommon(vector<int>& nums1, vector<int>& nums2) {
-        unordered_set<int>st(begin(nums2),end(nums2));
-        for(int i:nums1){
-            if(st.find(i)!=st.end()){
-                return i;
+        int s=nums1.size();
+        int s2=nums2.size();
+        int i=0;
+            int j=0;
+        while(i<s &&j<s2){
+            if(nums1[i]==nums2[j]){
+                return nums1[i];
             }
+            else{
+               if(nums1[i]>nums2[j]){
+                   j++;
+               }
+               else{
+                   i++;
+               }
+            }
+            
         }
         return -1;
     }
