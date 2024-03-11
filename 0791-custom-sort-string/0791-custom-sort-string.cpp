@@ -1,21 +1,21 @@
 class Solution {
 public:
     string customSortString(string order, string s) {
-        int array[26]={0};
-        for(char &ch:s){
-            array[ch-'a']++;
+        vector<int>mp(26,-1);
+        for(int i=0;i<order.length();i++){
+            mp[order[i]-'a']=i;
         }
-        string result= "";
-        for(char ch:order){
-            while(array[ch-'a']--){
-                result.push_back(ch);
+        
+        auto mycomparator=[mp](char&ch1,char&ch2){
+            if(mp[ch1-'a']<mp[ch2-'a']){
+                return true;
             }
-        }
-        for(char ch:s){
-            if(array[ch-'a']>0){
-                 result.push_back(ch);
+            else{
+                return false;
             }
-        }
-        return result;
+        };
+        
+        sort(s.begin(),s.end(),mycomparator);
+        return s;
     }
 };
