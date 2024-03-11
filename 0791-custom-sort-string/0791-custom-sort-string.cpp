@@ -6,12 +6,12 @@ public:
             array[ch-'a']++;
         }
         string result= "";
-        for(char &ch:order){
+        for(char ch:order){
             while(array[ch-'a']--){
                 result.push_back(ch);
             }
         }
-        for(char &ch:s){
+        for(char ch:s){
             if(array[ch-'a']>0){
                  result.push_back(ch);
             }
