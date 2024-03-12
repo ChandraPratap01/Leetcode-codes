@@ -11,29 +11,30 @@
 class Solution {
 public:
     ListNode* removeZeroSumSublists(ListNode* head) {
-        int prefixsum = 0;
-        ListNode* dummynode = new ListNode(0);
-        dummynode->next = head;
-        unordered_map<int, ListNode*> mp;
-        mp[0] = dummynode;
-        ListNode* current = head;
-        ListNode* prev = dummynode;
-        while (current != NULL) {
-            prefixsum += current->val;
-            if (mp.find(prefixsum) != mp.end()) {
-                ListNode* start = mp[prefixsum];
-                ListNode* temp = start->next;
-                int psum = prefixsum;
-                while (temp != current) {
-                    psum += temp->val;
+        int prefixsum=0;
+        ListNode*dummynode=new ListNode(0);
+        dummynode->next=head;
+        unordered_map<int,ListNode*>mp;
+        mp[0]=dummynode;
+        while(head!=NULL){
+            prefixsum+=head->val;
+            if(mp.find(prefixsum)!=mp.end()){
+                ListNode*start=mp[prefixsum];
+                ListNode*temp=start;
+                int psum=prefixsum;
+                while(temp!=head){
+                    temp=temp->next;
+                    psum+=temp->val;
+                    if(temp!=head){
                     mp.erase(psum);
-                    temp = temp->next;
+                    }
                 }
-                start->next = current->next;
-            } else {
-                mp[prefixsum] = current;
+                start->next=head->next;
             }
-            current = current->next;
+            else{
+                mp[prefixsum]=head;
+            }
+            head=head->next;
         }
         return dummynode->next;
     }
