@@ -25,12 +25,6 @@ public:
 
     bool isPalindrome(ListNode* head) {
     curr=head;
-   bool check= solve(head);
-       if(check){
-           return true;
-       }
-        else{
-            return false;
-        }
+   return solve(head);
     }
 };
