@@ -1,34 +1,31 @@
 class Solution {
 public:
-   int slidingWindow(vector<int>& nums, int k) {
-        unordered_map<int, int> mp;
-        
-        int n = nums.size();
-        int i = 0; 
-        int j = 0;
-        
-        int count = 0;
-        
-        while(j < n) {
-            
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        int s=nums.size();
+        unordered_map<int,int>mp;
+        int i=0;
+        int j=0;
+        int i_bada=0;
+        int result=0;
+        while(j<s){
             mp[nums[j]]++;
-            
-            while(mp.size() > k) {
-                //shrink the window
+            while(mp.size()>k){
                 mp[nums[i]]--;
-                if(mp[nums[i]] == 0) {
+                if(mp[nums[i]]==0){
                     mp.erase(nums[i]);
                 }
                 i++;
+                 i_bada=i;
             }
-            
-            count += (j-i+1); //ending at j
+           while(mp[nums[i]]>1){
+               mp[nums[i]]--;
+               i++;
+           }
+            if(mp.size()==k){
+                result+=(1+i-i_bada);
+            }
             j++;
         }
-        
-        return count;
-    } 
-     int subarraysWithKDistinct(vector<int>& nums, int k) {
-        return slidingWindow(nums, k) - slidingWindow(nums, k-1);
+        return result;
     }
 };
