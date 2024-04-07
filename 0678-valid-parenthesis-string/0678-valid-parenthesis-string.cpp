@@ -1,33 +1,29 @@
 class Solution {
 public:
-int t[101][101];
-  bool solve(int idx,int open,string &s,int n){
-    if(idx==n){
-        return open==0;
-    }
-    if(t[idx][open]!=-1){
-        return t[idx][open];
-    }
-    bool isvalid=false;
-    if(s[idx]=='*'){
-        isvalid|=solve(idx+1,open+1,s,n);
-        isvalid|=solve(idx+1,open,s,n);
-        if(open>0){
-            isvalid|=solve(idx+1,open-1,s,n);
-        }
-    }
-    else if(s[idx]=='('){
-        isvalid|=solve(idx+1,open+1,s,n);
-    }
-    else if(open>0){
-        isvalid|=solve(idx+1,open-1,s,n);
-    }
-     return t[idx][open]=isvalid;
-
-  }
     bool checkValidString(string s) {
         int n=s.length();
-        memset(t,-1,sizeof(t));
-        return solve(0,0,s,n);
+        vector<vector<bool>>t(n+1,vector<bool>(n+1,false));
+        t[n][0]=true;
+        for(int i=n-1;i>=0;i--){
+            for(int open=0;open<=n;open++){
+                bool isvalid=false;
+                if(s[i]=='*'){
+                    isvalid|=t[i+1][open+1];
+                    if(open>0){
+                        isvalid|=t[i+1][open-1];
+                    }
+                    isvalid|=t[i+1][open];
+                }
+                else if(s[i]=='('){
+                    isvalid|=t[i+1][open+1];
+                }
+                else if(open>0){
+                    isvalid|=t[i+1][open-1];
+                }
+                 t[i][open]=isvalid;
+            }
+        }
+        return t[0][0];
+        
     }
 };
