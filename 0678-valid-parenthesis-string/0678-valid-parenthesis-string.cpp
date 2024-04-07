@@ -1,29 +1,36 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        int n=s.length();
-        vector<vector<bool>>t(n+1,vector<bool>(n+1,false));
-        t[n][0]=true;
-        for(int i=n-1;i>=0;i--){
-            for(int open=0;open<=n;open++){
-                bool isvalid=false;
-                if(s[i]=='*'){
-                    isvalid|=t[i+1][open+1];
-                    if(open>0){
-                        isvalid|=t[i+1][open-1];
-                    }
-                    isvalid|=t[i+1][open];
+        stack<int>open;
+        stack<int>special;
+        
+        for( int i=0;i<=s.length()-1;i++){
+            if(s[i]=='('){
+                open.push(i);
+            }
+            else if(s[i]=='*'){
+                special.push(i);
+            }
+            else{
+                if(!open.empty()){
+                    open.pop();
                 }
-                else if(s[i]=='('){
-                    isvalid|=t[i+1][open+1];
+                else if(!special.empty()){
+                    special.pop();
                 }
-                else if(open>0){
-                    isvalid|=t[i+1][open-1];
+                else{
+                    return false;
                 }
-                 t[i][open]=isvalid;
             }
         }
-        return t[0][0];
-        
+        while(!open.empty()&& !special.empty()){
+            if(open.top()>special.top()){
+                return false;
+            }
+                open.pop();
+                special.pop();
+        }
+        return open.empty();
+            
     }
 };
