@@ -11,23 +11,26 @@
  */
 class Solution {
 public:
-    string result=" ";
-    void DFS(TreeNode* root,string curr){
-        if(root==NULL){
-            return ;
-        }
-        curr=char(root->val+'a')+curr;
-        if(root->left==NULL && root->right==NULL){
-            if(result==" "|| result>curr ){
-                result=curr;
-            }
-            return;
-    }
-        DFS(root->left,curr);
-        DFS(root->right,curr);
-    }
     string smallestFromLeaf(TreeNode* root) {
-      DFS(root,"");
+        string result="";
+        queue<pair<TreeNode*,string>>que;
+        que.push({root,string(1,char(root->val+'a'))});
+        while(!que.empty()){
+            auto[node,curr]=que.front();
+            que.pop();
+            if(node->left==NULL && node->right==NULL){
+                if(result==""||result>curr){
+                   result=curr; 
+                }
+            }
+            if(node->left){
+                que.push({node->left,char(node->left->val+'a')+curr});
+                
+            }
+            if(node->right){
+                que.push({node->right,char(node->right->val+'a')+curr});    
+            }
+        }
         return result;
     }
 };
