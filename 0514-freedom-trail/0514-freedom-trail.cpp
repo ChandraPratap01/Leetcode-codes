@@ -1,29 +1,29 @@
 class Solution {
 public:
-    int t[101][101];
     int count(int ringidx,int i,int s){
         int anticlock=abs(i-ringidx);
         int clockwise=s-anticlock;
         return min(anticlock,clockwise);
     }
-    int solve(int ringidx,int keyidx,string &ring,string&key){
-        if(keyidx==key.length()){
-            return 0;
+    int findRotateSteps(string ring, string key) {
+            int n=ring.length();
+            int m=key.length();
+        vector<vector<int>>t(n+1,vector<int>(m+1,INT_MAX));
+        for(int ringidx=0;ringidx<n;ringidx++){
+            t[ringidx][m]=0;
         }
-        if(t[ringidx][keyidx]!=-1){
-            return t[ringidx][keyidx];
-        }
-        int result=INT_MAX;
-        for(int i=0;i<ring.length();i++){
+        for(int keyidx=m-1;keyidx>=0;keyidx--){
+            for(int ringidx=0;ringidx<n;ringidx++){
+                int result=INT_MAX;
+        for(int i=0;i<n;i++){
             if(ring[i]==key[keyidx]){
-                int totalstep=count(ringidx,i,ring.length())+1+solve(i,keyidx+1,ring,key);
+                int totalstep=count(ringidx,i,n)+1+t[i][keyidx+1];
                 result=min(result,totalstep);
             }
         }
-        return t[ringidx][keyidx]=result;
-    }
-    int findRotateSteps(string ring, string key) {
-        memset(t,-1,sizeof(t));
-        return solve(0,0,ring,key);
+        t[ringidx][keyidx]=result;
+            }
+        }
+        return t[0][0];
         }
 };
