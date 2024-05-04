@@ -1,16 +1,16 @@
 class Solution {
 public:
     bool carPooling(vector<vector<int>>& trips, int capacity) {
-        map<int,int>mp;
+       vector<int>rt(1001,0);
         for(vector<int>vt:trips){
             int start=vt[1];
             int end=vt[2];
-            mp[start]+=vt[0];
-            mp[end]-=vt[0];
+            rt[start]+=vt[0];
+            rt[end]-=vt[0];
         }
         int sum=0;
-        for(auto it=mp.begin();it!=mp.end();it++){
-            sum+=it->second;
+        for(int i=0;i<1001;i++){
+            sum+=rt[i];
             if(sum>capacity){
                 return false;
             }
