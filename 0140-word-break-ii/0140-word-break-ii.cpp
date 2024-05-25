@@ -6,6 +6,7 @@ public:
      void solve(int i,string s,string &currstring){
         if(i>=n){
             result.push_back(currstring);
+            return;
         }
         for(int j=i;j<n;j++){
            string check=s.substr(i,j-i+1);
