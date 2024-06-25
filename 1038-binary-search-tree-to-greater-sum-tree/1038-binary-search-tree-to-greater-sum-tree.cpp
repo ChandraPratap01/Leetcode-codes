@@ -11,36 +11,18 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root,vector<int>&value){
+    int sum=0;
+    void solve(TreeNode* root){
         if(root==NULL){
             return;
         }
-        inorder(root->left,value);
-        value.push_back(root->val);
-        inorder(root->right,value);
-    }
-    void solve(TreeNode* root,vector<int>&value){
-        if(root==NULL){
-            return;
-        }
-        int sum=0;
-        for(int i=value.size()-1;i>=0;i--){
-            if(value[i]>=root->val){
-                sum+=value[i];
-            }
-            else{
-                break;
-            }
-        }
+        solve(root->right);
+        sum+= root->val;
         root->val=sum;
-        solve(root->left,value);
-        solve(root->right,value);
-        
+        solve(root->left);
     }
     TreeNode* bstToGst(TreeNode* root) {
-        vector<int>values;
-        inorder(root,values);
-        solve(root,values);
+        solve(root);
         return root;
     }
 };
