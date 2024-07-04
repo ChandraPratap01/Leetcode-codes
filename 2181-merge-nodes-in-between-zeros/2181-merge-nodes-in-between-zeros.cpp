@@ -13,23 +13,20 @@ public:
     ListNode* mergeNodes(ListNode* head) {
      ListNode*dummy=new ListNode(0);
         ListNode*temp1=dummy;
-        ListNode*temp=head;
         int sum=0;
-        while(temp!=NULL){
-            if(temp->val==0){
+        head=head->next;
+        while(head!=NULL){
                 sum=0;
-            }
-            else{
-                sum=0;
-                while(temp->val!=0){
-                     sum+=temp->val;
-                    temp=temp->next;
+                while(head!=NULL && head->val!=0){
+                     sum+=head-> val;
+                    head=head->next;
                 }
                 temp1->next= new ListNode(sum);
                 temp1=temp1->next;
+            if(head!=NULL){
+                head=head->next;
             }
-            temp=temp->next;
+            }
+          return dummy->next;
         }
-        return dummy->next;
-    }
 };
