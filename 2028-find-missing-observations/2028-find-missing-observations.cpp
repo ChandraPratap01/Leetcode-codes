@@ -14,16 +14,8 @@ public:
         vector<int>result(n,avg);
         for(int i=0;i<n;i++){
             if(remainder!=0){
-                int a=6-result[i];
-                if(a!=0 && a>=remainder){
-                    result[i]+=remainder;
-                    remainder=0;
-                }else if(a!=0 && a<remainder){
-                    result[i]+=a;
-                    remainder-=a;
-                }
-            }else{
-                return result;
+              result[i]++;
+                remainder--;
             }
         }
         return result;
