@@ -24,19 +24,15 @@ public:
                 head=head->next;
                  }
             right--;
-            for(int l=right;l>=0 && head!=NULL ;l-- ){
-                 if(result[bottom][l]==-1){
+            for(int l=right;l>=left && head!=NULL ;l-- ){
                 result[bottom][l]=head->val;
                 head=head->next;
                       }
-            }
             bottom--;
-            for(int d=bottom;d>=0 && head!=NULL;d--){
-                if(result[d][left]==-1){
+            for(int d=bottom;d>=top && head!=NULL;d--){
                     result[d][left]=head->val;
                         head=head->next;
                      }
-            }   
             left++;
     }
         return result;
