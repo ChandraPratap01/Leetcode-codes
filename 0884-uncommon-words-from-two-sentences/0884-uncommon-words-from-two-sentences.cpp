@@ -13,10 +13,10 @@ public:
          mp[store]++;
     }
     vector<string> uncommonFromSentences(string s1, string s2) {
+        string Z=s1+" "+s2;
        unordered_map<string,int>mp;
         vector<string>result;
-        solve(s1,mp);
-        solve(s2,mp);
+        solve(Z,mp);
         for(auto&it:mp){
             if(it.second==1){
                 result.push_back(it.first);
