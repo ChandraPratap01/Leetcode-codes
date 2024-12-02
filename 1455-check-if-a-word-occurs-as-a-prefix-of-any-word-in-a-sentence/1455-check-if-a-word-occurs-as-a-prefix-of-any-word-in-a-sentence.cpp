@@ -4,23 +4,11 @@ public:
         istringstream stream(sentence);
         string str;
         int idx=1;
-        int k=0;
-        int j=0;
         while(stream>>str){
-           while(k<str.size() && j<searchWord.size()){
-            if(str[k]==searchWord[j]){
-             k++;
-             j++;
-             continue;
-            }else{
-                break;
-            }
-           }
-           if(k>=searchWord.size()){
+         if(str.substr(0,searchWord.size())==searchWord){
             return idx;
-           }else{
-           idx++;
-           }
+        }
+            idx++;
         }
         return -1;
     }
